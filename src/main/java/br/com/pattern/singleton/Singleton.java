@@ -1,4 +1,4 @@
-package br.com.pattern;
+package br.com.pattern.singleton;
 
 public class Singleton {
 
