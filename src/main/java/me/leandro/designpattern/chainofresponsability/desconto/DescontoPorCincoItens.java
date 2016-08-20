@@ -1,19 +1,18 @@
 package me.leandro.designpattern.chainofresponsability.desconto;
 
-public class DescontoPorCincoItens implements Desconto {
+public class DescontoPorCincoItens extends Desconto {
 
-	private Desconto proximo;
+	public DescontoPorCincoItens() {
+	}
 
-	public double deconta(Orcamento orcamento) {
+	public DescontoPorCincoItens(Desconto proximo) {
+		super(proximo);
+	}
+
+	public double desconta(Orcamento orcamento) {
 		if (orcamento.getItens().size() > 5) {
 			return orcamento.getValor() * 0.1;
 		}
-		return proximo.deconta(orcamento);
+		return proximoDesconto(orcamento);
 	}
-
-	@Override
-	public void setProximo(Desconto proximo) {
-		this.proximo = proximo;
-	}
-
 }

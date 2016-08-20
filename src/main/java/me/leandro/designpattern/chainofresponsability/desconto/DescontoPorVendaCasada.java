@@ -1,15 +1,20 @@
 package me.leandro.designpattern.chainofresponsability.desconto;
 
-public class DescontoPorVendaCasada implements Desconto {
+public class DescontoPorVendaCasada extends Desconto {
 
-	private Desconto proximo;
+	public DescontoPorVendaCasada() {
+	}
+
+	public DescontoPorVendaCasada(Desconto proximo) {
+		super(proximo);
+	}
 
 	@Override
-	public double deconta(Orcamento orcamento) {
+	public double desconta(Orcamento orcamento) {
 		if (aconteceuVendaCasadaEm(orcamento)) {
 			return orcamento.getValor() * 0.05;
 		}
-		return proximo.deconta(orcamento);
+		return proximoDesconto(orcamento);
 	}
 
 	private boolean aconteceuVendaCasadaEm(Orcamento orcamento) {
@@ -17,16 +22,6 @@ public class DescontoPorVendaCasada implements Desconto {
 	}
 
 	private boolean existe(String nomeDoItem, Orcamento orcamento) {
-		for (Item item : orcamento.getItens()) {
-			if (item.getNome().equals(nomeDoItem.toLowerCase()))
-				return true;
-		}
-		return false;
+		return orcamento.getItens().stream().anyMatch(item -> item.getNome().equals(nomeDoItem.toLowerCase()));
 	}
-
-	@Override
-	public void setProximo(Desconto proximo) {
-		this.proximo = proximo;
-	}
-
 }
