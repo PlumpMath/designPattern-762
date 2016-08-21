@@ -9,14 +9,6 @@ public class DescontoPorVendaCasada extends TemplateDesconto {
 		super(proximo);
 	}
 
-	private boolean aconteceuVendaCasadaEm(Orcamento orcamento) {
-		return existe("CANETA", orcamento) && existe("LAPIS", orcamento);
-	}
-
-	private boolean existe(String nomeDoItem, Orcamento orcamento) {
-		return orcamento.getItens().stream().anyMatch(item -> item.getNome().equals(nomeDoItem.toLowerCase()));
-	}
-
 	@Override
 	protected boolean aptoReceberDesconto(Orcamento orcamento) {
 		return aconteceuVendaCasadaEm(orcamento);
@@ -25,5 +17,13 @@ public class DescontoPorVendaCasada extends TemplateDesconto {
 	@Override
 	protected double aplicarDesconto(Orcamento orcamento) {
 		return orcamento.getValor() * 0.05;
+	}
+
+	private boolean aconteceuVendaCasadaEm(Orcamento orcamento) {
+		return existe("CANETA", orcamento) && existe("LAPIS", orcamento);
+	}
+
+	private boolean existe(String nomeDoItem, Orcamento orcamento) {
+		return orcamento.getItens().stream().anyMatch(item -> item.getNome().equals(nomeDoItem.toLowerCase()));
 	}
 }

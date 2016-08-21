@@ -4,12 +4,12 @@ public abstract class TemplateDesconto implements Desconto {
 
 	static final double SEM_DESCONTO = 0.0;
 
-	private TemplateDesconto proximo;
+	private Desconto proximo;
 
 	protected TemplateDesconto() {
 	}
 
-	protected TemplateDesconto(TemplateDesconto proximo) {
+	protected TemplateDesconto(Desconto proximo) {
 		this.proximo = proximo;
 	}
 
